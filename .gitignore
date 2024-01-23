@@ -5,6 +5,5 @@ node_modules
 .cache
 dist
 public/excel
-prisma/migrations
 prisma/ERD.svg
 public/deleted

@@ -49,4 +49,9 @@
 img.image-height.block.w-full.border-round-top {
     height: 400px;
 }
+.flex-wrap {
+    flex-wrap: wrap!important;
+    justify-content: center;
+    align-items: center;
+}
 </style>

@@ -9,7 +9,7 @@ generator erd {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://emeraldforms:bm19962019@localhost:3306/emeraldforms?schema=public"
 }
 model User {
   id                String         @id @default(cuid())

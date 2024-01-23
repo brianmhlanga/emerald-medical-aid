@@ -33,6 +33,78 @@ model User {
   @@map("user")
 
 }
+model Individual {
+  id String @id @default(cuid())
+  first_name String
+  last_name String
+  title String
+  date_of_birth DateTime
+  id_number String
+  gender Gender
+  membership_number String?
+  cell_number String?
+  physical_address String?
+  place_of_birth String?
+  marital_status String?
+  employer_name String?
+  employer_contact_number String?
+  occupation String?
+  department String?
+  ec_number String?
+  station_number String?
+  depandancy Dependent[]
+  package_type String?
+  package_details String?
+  previous_ailments Json?
+  other_information String?
+  previous_society_name String?
+  tyform Tyforms?
+  previous_package_name String?
+  from_date DateTime?
+  to_date DateTime?
+  created_at          DateTime       @default(now())
+  updated_at          DateTime @updatedAt
+  @@map("individual")
+
+}
+
+model Tyforms {
+  id String @id @default(cuid())
+  first_name String?
+  last_name String?
+  id_number String?
+  ministry String?
+  department_code String?
+  individual_id String? @unique
+  individual Individual? @relation(fields: [individual_id],references: [id])
+  station_code String?
+  selected_application_type String?
+  card_type String?
+  section String?
+  subsection String?
+  employee_code_number String?
+  cd String?
+  payee_code String?
+  amount_deducted Float?
+  from_date_ty String?
+  to_date_ty String?
+  policy_medical_aid_number String?
+  created_at          DateTime       @default(now())
+  updated_at          DateTime @updatedAt
+}
+
+model Dependent {
+  id String @id @default(cuid())
+  first_name String?
+  last_name String?
+  individual_id String?
+  dp Individual? @relation(fields: [individual_id],references: [id])
+  gender Gender?
+  id_number String?
+  created_at          DateTime       @default(now())
+  updated_at          DateTime @updatedAt
+}
+
 enum profile_type {
   ADMIN
   STUDENT
@@ -48,112 +120,5 @@ enum profile_type {
   FEMALE
  }
  
- 
-model Student {
-  id                     String              @unique  @id @default(cuid())
-  portal_id              Int @unique  @default(autoincrement())
-  first_name             String?
-  last_name              String?
-  email                  String? @unique           
-  phone                  String?
-  nationality            Json?            
-  date_of_birth          DateTime?
-  school                 String?
-  grade                  String?
-  profile                profile_type @default(STUDENT)
-  password               String?
-  exams                  Applications[]
-  current_logged_in_at   DateTime?
-  last_logged_in_at      DateTime?
-}
-
-model Applications {
-  id String @id @unique @default(cuid())
-  exam_status Boolean? @default(false)
-  postingId String?
-  applicantId String?
-  status exam_status @default(NOT_TAKEN)
-  jobpostings          Subject? @relation(fields: [postingId], references: [id])
-  applicant            Student? @relation(fields: [applicantId],references: [id])
-}
-
-enum exam_status {
-  NOT_TAKEN
-  PASS
-  FAILED
-}
-
-model Subject {
-  id                  String                @id @unique @default(cuid())
-  name              String?
-  description         String?                @db.VarChar(10000)
-  status              Subject_status    @default(OPEN)
-  views               Int?
-  exam_taken          Boolean?               @default(false)
-  questionaire        Questionaire[]
-  applications        Applications[]
-  questionaireanswers QuestionaireAnswers[]
-}
-
-
-enum Subject_status {
-  OPEN
-  CLOSED
-  DRAFT
-}
-model Questionaire {
-  id                          String      @id @default(cuid())
-  postingId                   String
-  question_type               String
-  options                     Json?     
-  score                       Int?
-  created_at                  DateTime    @default(now())
-  created_by_name             String?
-  created_by_id               Int?
-  boolean_answer              Boolean?
-  multichoice_answer          String? 
-  applicant_id                String?
-  question                    String      @db.VarChar(10000)
-  student_boolean_answer      Boolean?
-  student_multichoice_answer  String?
-  student_unstructured_answer String?
-  correct                     Boolean?    @default(false)
-  subject                 Subject @relation(fields: [postingId], references: [id], map: "Questionaire_postingId_fkey")
-
-  @@index([postingId], map: "Questionaire_postingId_fkey")
-}
-
-model QuestionaireAnswers {
-  id                          String
-  postingId                   String
-  question                    String      @db.VarChar(10000)
-  question_type               String
-  multichoice_answer          String?
-  boolean_answer              Boolean?
-  options                     Json?     
-  score                       Int?
-  student_boolean_answer      Boolean?
-  student_multichoice_answer  String?
-  student_unstructured_answer String?
-  correct                     Boolean?    @default(false)
-  created_at                  DateTime    @default(now())
-  created_by_name             String?
-  created_by_id               Int?
-  applicant_id                String?
-  id_primary                  String      @id @default(cuid())
-  jobpostings                 Subject @relation(fields: [postingId], references: [id], map: "QuestionaireAnswers_postingId_fkey")
-
-  @@index([postingId], map: "QuestionaireAnswers_postingId_fkey")
-}
-
-
-
- model Attachments {
-  id  String @id @default(cuid())
-  attachment_name String
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
-
- }
 
 

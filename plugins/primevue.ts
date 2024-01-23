@@ -7,6 +7,7 @@ import Toast from 'primevue/toast';
 import InputText from 'primevue/inputtext';
 import FileUpload from 'primevue/fileupload';
 import Textarea from 'primevue/textarea';
+import Checkbox from "primevue/checkbox";
 import InlineMessage from 'primevue/inlinemessage';
 import Calendar from 'primevue/calendar';
 import Card from 'primevue/card';
@@ -72,8 +73,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(ConfirmationService);
     nuxtApp.vueApp.component('ProgressSpinner',ProgressSpinner)
     nuxtApp.vueApp.component('Chart',Chart)
+    nuxtApp.vueApp.component('Textarea',Textarea)
     nuxtApp.vueApp.component('Slider',Slider);
     nuxtApp.vueApp.component('ColorPicker',ColorPicker)
+    nuxtApp.vueApp.component('Checkbox',Checkbox)
     nuxtApp.vueApp.component('Splitter',Splitter);
     nuxtApp.vueApp.component('SplitterPanel',SplitterPanel);
     nuxtApp.vueApp.component('InlineMessage',InlineMessage);

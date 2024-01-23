@@ -1,5 +1,5 @@
 <template>
     <NuxtLayout name="default">
-        <LandingThird/>
+        <FormsIndividuals />
     </NuxtLayout>
 </template>

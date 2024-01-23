@@ -9,17 +9,17 @@
         <div class="grid nogutter">
             <div class="col-12 lg:col-6 p-6">
             <div class="custom-shadow-2 border-round h-full surface-card">
-            <img src="/images/civil.jpg" alt="Image" class="image-height block w-full border-round-top">
+            <img src="/images/civil.jpg" alt="Image" class=" block w-full border-round-top">
             <div class="p-4">
                 <div class="text-xl text-900 font-medium mb-3 line-height-3">Civil Servants</div>
-                <div class="line-height-3 mb-3 text-700 mb-4">Cater specifically to civil servants, providing health coverage tailored to the unique healthcare requirements of government employees.</div>
+                <div class="line-height-3 mb-3 text-700 mb-4">Cater specifically to civil servants, providing health coverage tailored for government employees.</div>
                 <Button @click="navigateTo('/civil')" class="p-button p-component w-full" label="Register Today" icon="pi pi-map" />
             </div>
             </div>
         </div>
         <div class="col-12 lg:col-6 p-6">
             <div class="custom-shadow-2 border-round h-full surface-card">
-            <img  src="/images/individuals.jpg" alt="Image" class="image-height block w-full border-round-top">
+            <img  src="/images/individuals.jpg" alt="Image" class="block w-full border-round-top">
             <div class="p-4">
                 <div class="text-xl text-900 font-medium mb-3 line-height-3">Individuals</div>
                 <div class="line-height-3 mb-3 text-700 mb-4">Tailored to provide comprehensive health coverage and additional benefits to individual members.</div>

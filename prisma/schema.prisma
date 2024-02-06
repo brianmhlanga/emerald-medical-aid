@@ -9,7 +9,7 @@ generator erd {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://eforms:bm19962019@@localhost:3306/eforms?schema=public"
+  url      = "mysql://eforms:bm19962019@localhost:3306/eforms?schema=public"
 }
 model User {
   id                String         @id @default(cuid())

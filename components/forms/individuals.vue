@@ -11,38 +11,49 @@
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">First Name/s</label>
                 <input v-model="first_name" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Last Name</label>
                 <input v-model="last_name" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
                 <label for="nickname2" class="font-medium text-900">Title</label>
                 <DropDown v-model="selected_titles" :options="titles" placeholder="Select Title" class="w-full md:12" />
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
                 <label for="nickname2" class="font-medium text-900">Date of Birth</label>
-                <Calendar v-model="date_of_birth" class="w-full md:12" />
+                <Calendar v-model="date_of_birth" :maxDate="maxDate" class="w-full md:12" />
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
+                <InlineMessage v-if="valid_id === false" severity="warn">ID Number must be in the format (15-225668V75)</InlineMessage>
                 <label for="nickname2" class="font-medium text-900">ID Number</label>
-                <input v-model="id_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <input @keyup="isValidZimbabweanID()" v-model="id_number" class="p-inputtext p-component" placeholder="15-225668V75" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
                 <label for="nickname2" class="font-medium text-900">Gender</label>
                 <DropDown v-model="selected_gender" :options="gender" placeholder="Select Gender" class="w-full md:12" />
+                <small style="color:red">Required</small>
             </div>
-            <div class="field mb-4 col-6">
-                <label for="nickname2" class="font-medium text-900">Membership Number</label>
-                <input v-model="membership_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
-            </div>
-            <div class="field mb-4 col-6">
+            <div class="field mb-4 col-12">
                 <label for="nickname2" class="font-medium text-900">Cell Number</label>
-                <input v-model="cell_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <MazPhoneNumberInput
+                    v-model="cell_number"
+                    v-model:country-code="countryCode"
+                    show-code-on-list
+                    :preferred-countries="['ZW', 'ZA', 'DE', 'US', 'GB']"
+                    @update="cell_validation = $event"
+                />
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Physical Address</label>
                 <Textarea v-model="physical_address" rows="5" cols="30" />
+                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Place of Birth</label>
@@ -51,6 +62,7 @@
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Marital Status</label>
                 <DropDown v-model="selected_marital_status" :options="marital_status" placeholder="Select Marital Status" class="w-full md:12" />
+                <small style="color:red">Required</small>
             </div>
             <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
             <div class="field mb-4 col-12 md:col-12">
@@ -59,6 +71,7 @@
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Employer Name</label>
                 <input v-model="employer_name" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                
             </div>
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Contact Numbers</label>
@@ -90,21 +103,33 @@
                         <div class="w-full">
                             <label for="cvc" class="block mb-1 text-color text-base">First Name</label>
                             <input v-model="dependent_first_name" class="p-inputtext p-component w-full" data-pc-name="inputtext" data-pc-section="root" name="cvc" type="text" id="cvc">
+                            <small style="color:red">Required</small>
                         </div>
                         <div class="w-full">
                             <label for="expiration" class="block mb-1 text-color text-base">Last Name</label>
                             <input v-model="dependent_last_name" class="p-inputtext p-component w-full" data-pc-name="inputtext" data-pc-section="root" name="exp" type="text" id="expiration">
+                            <small style="color:red">Required</small>
                         </div>
                         </div>
-                        <div>
-                        <label for="cardholder" class="block mb-1 text-color text-base">Gender</label>
+                        <div class="flex gap-3">
+                        <div class="w-full">
+                            <label for="cardholder" class="block mb-1 text-color text-base">Gender</label>
                           <DropDown v-model="selected_dependent_gender" :options="gender" placeholder="Select Gender" class="w-full md:12" />
+                          <small style="color:red">Required</small>
+                        </div>
+                        <div class="w-full">
+                            <label for="expiration" class="block mb-1 text-color text-base">Relationship to Principal</label>
+                            <DropDown v-model="selected_dependent_gender" :options="gender" placeholder="Select Gender" class="w-full md:12" />
+                            <small style="color:red">Required</small>
+                        </div>
                         </div>
                         <div>
+                        <InlineMessage v-if="dependent_valid_id === false" severity="warn">ID Number must be in the format (15-225668V75)</InlineMessage>
                         <label for="credit-card" class="block mb-1 text-color text-base">ID Number</label>
                         <span class="p-input-icon-left w-full">
                             <i class="pi pi-credit-card"></i>
-                            <input v-model="dependent_id_number" class="p-inputtext p-component w-full" data-pc-name="inputtext" data-pc-section="root" name="cc" type="text" id="credit-card" placeholder="14-155115A51">
+                            <input @keyup="isValidZimbabweanIDDependent()" v-model="dependent_id_number" class="p-inputtext p-component w-full" data-pc-name="inputtext" data-pc-section="root" name="cc" type="text" id="credit-card" placeholder="14-155115A51">
+                            <small style="color:red">Required</small>
                         </span>
                         </div>
                        
@@ -217,6 +242,7 @@
 </template>
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
+import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import { useFormStore } from "~~/stores/form";
 import { useToast } from "primevue/usetoast";
 
@@ -226,7 +252,11 @@ const add_dependent_modal = ref(false)
 const first_name = ref()
 const last_name = ref()
 const selected_titles = ref()
+const countryCode = ref('ZW')
 const date_of_birth = ref()
+const cell_validation = ref()
+const valid_id = ref()
+const dependent_valid_id = ref()
 const id_number = ref()
 const selected_gender = ref()
 const membership_number = ref()
@@ -245,12 +275,14 @@ const contact_number = ref()
 const occupation = ref()
 const department = ref()
 const ec_number = ref()
+const minDate = ref(new Date());
+const maxDate = ref(new Date());
 const station_number = ref()
 const dependent_first_name = ref()
 const dependent_last_name = ref()
 const selected_dependent_gender = ref()
 const dependent_id_number = ref()
-const gender = ref(['MALE', 'FEMALE'])
+const gender = ref(['MALE', 'FEMALE','OTHER'])
 const selected_title = ref()
 const titles = ref(['MR','MRS','MISS'])
 const selected_package_type = ref()
@@ -261,6 +293,7 @@ const marital_status = ref([
   'SINGLE',
   'MARRIED',
   'DIVORCED',
+  'COMMON_LAW',
   'WIDOWED',
   'SEPARATED'
 ])
@@ -288,17 +321,28 @@ const addToDependents = () => {
 
     dependents.value.push(data)
     add_dependent_modal.value = false
+    dependent_valid_id.value = null
 }
 const removefromDependency = (data) => {
     console.log(data)
     dependents.value.splice(data, 1);
 }
-const  isValidZimbabweanID = (idNumber) => {
+
+const  isValidZimbabweanID = () => {
   // Define the regular expression pattern
   const regex = /^\d{2}-\d{6}[A-Z]\d{2}$/;
 
   // Test the given ID number against the pattern
-  return regex.test(idNumber);
+  valid_id.value = regex.test(id_number.value);
+  return regex.test(id_number.value);
+}
+const  isValidZimbabweanIDDependent = () => {
+  // Define the regular expression pattern
+  const regex = /^\d{2}-\d{6}[A-Z]\d{2}$/;
+
+  // Test the given ID number against the pattern
+  dependent_valid_id.value = regex.test(dependent_id_number.value);
+  return regex.test(id_number.value);
 }
 const submitApplication = () => {
     loading.value = true;

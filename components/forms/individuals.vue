@@ -31,7 +31,7 @@
             <div class="field mb-4 col-3">
                 <InlineMessage v-if="valid_id === false" severity="warn">ID Number must be in the format (15-225668V75)</InlineMessage>
                 <label for="nickname2" class="font-medium text-900">ID Number</label>
-                <input @keyup="isValidZimbabweanID()" v-model="id_number" class="p-inputtext p-component" placeholder="15-225668V75" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
+                <input @keyup="isValidZimbabweanID()" v-model="id_number" class="p-inputtext p-component" placeholder="e.g 15-225668V75" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
                 <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
@@ -46,7 +46,7 @@
                     v-model:country-code="countryCode"
                     show-code-on-list
                     :preferred-countries="['ZW', 'ZA', 'DE', 'US', 'GB']"
-                    @update="cell_validation = $event"
+                    @update="cell_validation = $event,console.log(cell_validation.isValid)"
                 />
                 <small style="color:red">Required</small>
             </div>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="w-full">
                             <label for="expiration" class="block mb-1 text-color text-base">Relationship to Principal</label>
-                            <DropDown v-model="selected_dependent_gender" :options="gender" placeholder="Select Gender" class="w-full md:12" />
+                            <DropDown v-model="selected_relationship_to_principal" :options="relationships" placeholder="Select Gender" class="w-full md:12" />
                             <small style="color:red">Required</small>
                         </div>
                         </div>
@@ -143,7 +143,7 @@
                         <!---->
                         <span role="presentation" aria-hidden="true" data-p-ink="true" data-p-ink-active="false" class="p-ink" data-pc-name="ripple" data-pc-section="root"></span>
                         </button>
-                        <button @click="addToDependents" class="p-button p-component w-6 ml-2" type="button" aria-label="Save" data-pc-name="button" data-pc-section="root" data-pd-ripple="true">
+                        <button :disabled="!dependent_first_name || !dependent_last_name || !selected_dependent_gender || !selected_relationship_to_principal || dependent_valid_id === false || !dependent_id_number" @click="addToDependents" class="p-button p-component w-6 ml-2" type="button" aria-label="Save" data-pc-name="button" data-pc-section="root" data-pd-ripple="true">
                         <span class="p-button-icon p-button-icon-left pi pi-check" data-pc-section="icon"></span>
                         <span class="p-button-label" data-pc-section="label">Save</span>
                         <!---->
@@ -178,6 +178,11 @@
                 <Column  header="ID Number">
                     <template #body="slotProps">
                         {{ slotProps.data.id_number }}
+                    </template>
+                </Column>
+                <Column  header="Relationship">
+                    <template #body="slotProps">
+                        {{ slotProps.data.relationship }}
                     </template>
                 </Column>
                 <Column  header="Status">
@@ -227,14 +232,15 @@
                 <Calendar v-model="to_date" class="w-full md:12" />
             </div>
             <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
-            <div class="col-12">
-                <button :loading="loading" @click="submitApplication" class="p-button p-component w-auto mt-3" type="button" aria-label="Save Changes" data-pc-name="button" data-pc-section="root" data-pd-ripple="true">
-                <!---->
-                <span class="p-button-label" data-pc-section="label">Send Application</span>
-                <!---->
-                <span role="presentation" aria-hidden="true" data-p-ink="true" data-p-ink-active="false" class="p-ink" data-pc-name="ripple" data-pc-section="root"></span>
-                </button>
+            <div class="flex col-12">
+                <div class="col-6">
+                <Button @click="navigateTo('https://emeraldmas.com', {external: true})" label="Cancel/Back"/>
+                </div>
+                <div class="col-6">
+                <Button :loading="loading" @click="submitApplication()" label="Send Application" icon="pi pi-file" :disabled="!first_name || !last_name || !selected_titles || !date_of_birth || !id_number || valid_id === false || !selected_gender || cell_validation.isValid === false || !physical_address || !selected_marital_status" />
+                </div>
             </div>
+           
             </div>
         </div>
         </div>
@@ -286,9 +292,11 @@ const gender = ref(['MALE', 'FEMALE','OTHER'])
 const selected_title = ref()
 const titles = ref(['MR','MRS','MISS'])
 const selected_package_type = ref()
-const package_types = ref(['INDIVIDUAL','CORPORATE','FAMILY','HEALTH SAVINGS FUND','STUDENT','GOVERMENT','COMMUNITY HEALTH FUND'])
+const selected_relationship_to_principal = ref()
 const selected_package_details = ref()
-const package_details = ref(['BASIC','STANDARD','ELITE','CLASSIC','COMPREHENSIVE','EXECUTIVE','PLATINUM'])
+const relationships = ref(["Son", "Daughter", "Spouse", "Mother", "Father", "Other"])
+const package_types = ref(['INDIVIDUAL'])
+const package_details = ref(['EXECUTIVE','PLATINUM'])
 const marital_status = ref([
   'SINGLE',
   'MARRIED',
@@ -317,9 +325,14 @@ const addToDependents = () => {
         last_name: dependent_last_name.value,
         gender: selected_dependent_gender.value,
         id_number: dependent_id_number.value,
+        relationship: selected_relationship_to_principal.value
     }
-
     dependents.value.push(data)
+    dependent_first_name.value = null
+    dependent_last_name.value = null
+    selected_dependent_gender.value = null
+    selected_relationship_to_principal.value = null
+    dependent_id_number.value = null
     add_dependent_modal.value = false
     dependent_valid_id.value = null
 }
@@ -385,7 +398,7 @@ const submitApplication = () => {
         })
        }
        else{
-
+        loading.value = false
         toast.add({ severity: 'error', summary: 'Failed to sent data', detail: data.data.message, life: 3000 });
         }
     })

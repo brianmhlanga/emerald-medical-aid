@@ -92,6 +92,7 @@ CREATE TABLE `Dependent` (
     `first_name` VARCHAR(191) NULL,
     `last_name` VARCHAR(191) NULL,
     `individual_id` VARCHAR(191) NULL,
+    `relationship` VARCHAR(191) NULL,
     `gender` ENUM('MALE', 'FEMALE') NULL,
     `id_number` VARCHAR(191) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

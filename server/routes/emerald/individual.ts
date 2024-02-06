@@ -1,6 +1,7 @@
 import { prisma } from "~~/prisma/db";
 import bcrypt from "bcrypt";
 import argon2 from "argon2";
+import { sendIndividualEmail } from "~/helpers/emails";
 
 export default defineEventHandler(async (event)=>{
 
@@ -51,11 +52,17 @@ export default defineEventHandler(async (event)=>{
      }
      
     })
-    
- 
+    const createdProfile = await prisma.individual.findUnique({
+        where: {
+            id: createProfile.id
+        },
+        include: {
+            depandancy: true
+        }
+    })
     response['profile'] = createProfile
-    response['success'] = true
- 
+     response['success'] = true
+    await sendIndividualEmail(createdProfile)
     } catch(error) {
  
        console.log(error)

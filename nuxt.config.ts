@@ -33,7 +33,11 @@ export default defineNuxtConfig({
     runtimeConfig: {
       DATABASE_URL: process.env.DATABASE_URL,
       JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET,
-      EMAIL_HOST: process.env.EMAIL_HOST
+      EMAIL_HOST: process.env.EMAIL_HOST,
+      EMAIL_SERVICE: process.env.EMAIL_SERVICE,
+      EMAIL_PORT: process.env.EMAIL_PORT,
+      EMAIL_USER: process.env.EMAIL_USER,
+      EMAIL_PASS: process.env.EMAIL_PASS,
+      EMAIL_RECEIVER: process.env.EMAIL_RECEIVER,
     }
-    
 })

@@ -9,7 +9,7 @@ generator erd {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://emeraldforms:bm19962019@localhost:3306/emeraldforms?schema=public"
+  url      = env("DATABASE_URL")
 }
 model User {
   id                String         @id @default(cuid())
@@ -98,6 +98,7 @@ model Dependent {
   first_name String?
   last_name String?
   individual_id String?
+  relationship String?
   dp Individual? @relation(fields: [individual_id],references: [id])
   gender Gender?
   id_number String?

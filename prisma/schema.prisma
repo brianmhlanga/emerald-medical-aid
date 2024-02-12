@@ -6,7 +6,7 @@ generator client  {
 datasource db {
   provider = "mysql"
   // url = env("DATABASE_URL")
-  url      = "mysql://eforms:bm19962019@@localhost:3306/forms?schema=public"
+  url      = "mysql://eforms:bm19962019@localhost:3306/forms?schema=public"
 }
 model User {
   id                String         @id @default(cuid())

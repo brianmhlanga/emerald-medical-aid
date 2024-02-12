@@ -21,7 +21,7 @@ model User {
   profile            profile_type @default(ADMIN)
   password           String
   salt               String
-  current_logged_in_at   DateTime
+  current_logged_in_at   DateTime?
   last_logged_in_at      DateTime
   account_status      status @default(INACTIVE)
   created_at          DateTime       @default(now())

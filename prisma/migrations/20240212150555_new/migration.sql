@@ -12,7 +12,7 @@ CREATE TABLE `user` (
     `profile` ENUM('ADMIN', 'STUDENT') NOT NULL DEFAULT 'ADMIN',
     `password` VARCHAR(191) NOT NULL,
     `salt` VARCHAR(191) NOT NULL,
-    `current_logged_in_at` DATETIME(3) NOT NULL,
+    `current_logged_in_at` DATETIME(3) NULL,
     `last_logged_in_at` DATETIME(3) NOT NULL,
     `account_status` ENUM('ACTIVE', 'INACTIVE') NOT NULL DEFAULT 'INACTIVE',
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -47,6 +47,7 @@ CREATE TABLE `individual` (
     `package_type` VARCHAR(191) NULL,
     `package_details` VARCHAR(191) NULL,
     `previous_ailments` JSON NULL,
+    `id_photos` JSON NULL,
     `other_information` VARCHAR(191) NULL,
     `previous_society_name` VARCHAR(191) NULL,
     `previous_package_name` VARCHAR(191) NULL,
@@ -91,12 +92,23 @@ CREATE TABLE `Dependent` (
     `id` VARCHAR(191) NOT NULL,
     `first_name` VARCHAR(191) NULL,
     `last_name` VARCHAR(191) NULL,
+    `dob` DATETIME(3) NULL,
     `individual_id` VARCHAR(191) NULL,
     `relationship` VARCHAR(191) NULL,
     `gender` ENUM('MALE', 'FEMALE') NULL,
     `id_number` VARCHAR(191) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Attachments` (
+    `id` VARCHAR(191) NOT NULL,
+    `attachment_name` VARCHAR(191) NOT NULL,
+    `date_updated` DATETIME(3) NOT NULL,
+    `date_created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

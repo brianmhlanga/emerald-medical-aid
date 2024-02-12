@@ -29,7 +29,7 @@
                 <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
-                <InlineMessage v-if="valid_id === false" severity="warn">ID Number must be in the format (15-225668V75)</InlineMessage>
+                <InlineMessage v-if="valid_id === false" severity="warn">ID Number is not valid Zimbabwean ID</InlineMessage>
                 <label for="nickname2" class="font-medium text-900">ID Number</label>
                 <input @keyup="isValidZimbabweanID()" v-model="id_number" class="p-inputtext p-component" placeholder="e.g 15-225668V75" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
                 <small style="color:red">Required</small>
@@ -49,6 +49,20 @@
                     @update="cell_validation = $event,console.log(cell_validation.isValid)"
                 />
                 <small style="color:red">Required</small>
+            </div>
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="city2" class="font-medium text-900">National ID(Upload Photo)</label>
+                <FileUpload :auto="true" mode="basic" style="width: fit-content;" name="photo" url="/emerald/upload" @upload="onAdvancedUpload($event)"  accept="image/*" :maxFileSize="5000000"/>
+                <small style="color:red">Required</small>
+                <Carousel v-if="uploaded_images.length > 0" :value="uploaded_images" :numVisible="3" :numScroll="3" :responsiveOptions="responsiveOptions">
+                    <template #item="slotProps">
+                        <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                            <div class="mb-3">
+                                <img :src="`uploads/${slotProps.data.image_url}`" class="w-6 shadow-2" />
+                            </div>
+                        </div>
+                    </template>
+                </Carousel>
             </div>
             <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Physical Address</label>
@@ -124,6 +138,13 @@
                         </div>
                         </div>
                         <div>
+                        <label for="credit-card" class="block mb-1 text-color text-base">Date of Birth</label>
+                        <span class="p-input-icon-left w-full">
+                            <Calendar @date-select="findAge()" v-model="dependent_dob" :maxDate="maxDate" class="w-full md:12" />
+                            <small style="color:red">Required</small>
+                        </span>
+                        </div>
+                        <div v-if="is_over_eighteen === true">
                         <InlineMessage v-if="dependent_valid_id === false" severity="warn">ID Number must be in the format (15-225668V75)</InlineMessage>
                         <label for="credit-card" class="block mb-1 text-color text-base">ID Number</label>
                         <span class="p-input-icon-left w-full">
@@ -143,12 +164,14 @@
                         <!---->
                         <span role="presentation" aria-hidden="true" data-p-ink="true" data-p-ink-active="false" class="p-ink" data-pc-name="ripple" data-pc-section="root"></span>
                         </button>
-                        <button :disabled="!dependent_first_name || !dependent_last_name || !selected_dependent_gender || !selected_relationship_to_principal || dependent_valid_id === false || !dependent_id_number" @click="addToDependents" class="p-button p-component w-6 ml-2" type="button" aria-label="Save" data-pc-name="button" data-pc-section="root" data-pd-ripple="true">
-                        <span class="p-button-icon p-button-icon-left pi pi-check" data-pc-section="icon"></span>
-                        <span class="p-button-label" data-pc-section="label">Save</span>
-                        <!---->
-                        <span role="presentation" aria-hidden="true" data-p-ink="true" data-p-ink-active="false" class="p-ink" data-pc-name="ripple" data-pc-section="root"></span>
-                        </button>
+                        <Button @click="addToDependents()" class="p-button p-component w-6 ml-2" :disabled="
+                        !dependent_first_name ||
+                        !dependent_last_name ||
+                        !selected_dependent_gender ||
+                        !selected_relationship_to_principal ||
+                        !dependent_dob ||
+                        (is_over_eighteen && (!dependent_id_number || dependent_valid_id === false))
+                    "  label="Save" />
                     </div>
                     </div>
                 </Dialog>
@@ -173,6 +196,11 @@
                 <Column  header="Gender">
                     <template #body="slotProps">
                         {{ slotProps.data.gender }}
+                    </template>
+                </Column>
+                <Column  header="Date of Birth">
+                    <template #body="slotProps">
+                        {{ slotProps.data.dob }}
                     </template>
                 </Column>
                 <Column  header="ID Number">
@@ -237,7 +265,7 @@
                 <Button @click="navigateTo('https://emeraldmas.com', {external: true})" label="Cancel/Back"/>
                 </div>
                 <div class="col-6">
-                <Button  @click="goToNext()" label="Proceed" icon="pi pi-file" :disabled="!first_name || !last_name || !selected_titles || !date_of_birth || !id_number || valid_id === false || !selected_gender || cell_validation.isValid === false || !physical_address || !selected_marital_status" />
+                <Button  @click="goToNext()" label="Proceed" icon="pi pi-file" :disabled="!first_name || !last_name || !selected_titles || !date_of_birth || !id_number || valid_id === false || !selected_gender || cell_validation.isValid === false || !physical_address || !selected_marital_status || uploaded_images.length < 1 " />
                 </div>
             </div>
            
@@ -269,12 +297,10 @@
             <div class="field mb-4 col-3">
                 <label for="nickname2" class="font-medium text-900">Department Code</label>
                 <input v-model="department_code" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
-                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-3">
                 <label for="nickname2" class="font-medium text-900">Station Code</label>
                 <input v-model="station_code" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
-                <small style="color:red">Required</small>
             </div>
             <div class="field mb-4 col-12">
                 <label for="nickname2" class="font-medium text-900">Application Type</label>
@@ -321,13 +347,20 @@
                 <label for="nickname2" class="font-medium text-900">Policy or Medical Aid Number</label>
                 <input v-model="policy_medical_aid_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
             </div>
+            <div class="field mb-4 col-12">
+            <label for="visibility" class="block font-normal text-900 mb-2">Terms & Conditions</label>
+            <div class="flex align-items-center">
+                <Checkbox v-model="checked" :binary="true" />
+                <span class="ml-2 font-normal text-base text-color-primary">By submitting, you aknowledge that you have read and understood, and agree to Emerald Medical Aid <a href="http://emerald.devpreview.net/?page_id=64">Terms and Conditions</a></span>
+            </div>
+            </div>
             <div class="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
             <div class="flex col-12">
                 <div class="col-6">
                     <Button @click="first = true" label="Back"/>
                 </div>
                 <div class="col-6">
-                    <Button :loading="loading" @click="submitApplication" :disabled="!ministry || !department_code || !station_code || !selected_application_type" label="Send Application" />
+                    <Button :loading="loading" @click="submitApplication" :disabled="!ministry || !selected_application_type || checked === false" label="Send Application" />
                 </div>
             </div>
             </div>
@@ -346,6 +379,7 @@ const formStore = useFormStore()
 const first = ref(true)
 const add_dependent_modal = ref(false)
 const first_name = ref()
+const dependent_dob = ref()
 const last_name = ref()
 const selected_titles = ref()
 const date_of_birth = ref()
@@ -360,6 +394,7 @@ const physical_address = ref()
 const place_of_birth = ref()
 const other_information = ref()
 const society_name = ref()
+const checked = ref(false)
 const package_name = ref()
 const from_date = ref()
 const to_date = ref()
@@ -401,6 +436,29 @@ const amount_deducted = ref()
 const from_date_ty = ref()
 const to_date_ty = ref()
 const policy_medical_aid_number = ref()
+const uploaded_images = ref<any>([])
+const responsiveOptions = ref([
+    {
+        breakpoint: '1400px',
+        numVisible: 2,
+        numScroll: 1
+    },
+    {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1
+    },
+    {
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 1
+    },
+    {
+        breakpoint: '575px',
+        numVisible: 1,
+        numScroll: 1
+    }
+]);
 const marital_status = ref([
   'SINGLE',
   'MARRIED',
@@ -422,15 +480,44 @@ const categories = ref([
     {name: "PSYCHATRIC", key: "I"},
     {name: "OTHER", key: "J"},
 ]);
+const is_over_eighteen = ref(false)
 const selectedCategories = ref([]);
 const goToNext = () => {
     first.value = false,
     navigateTo('/civil#top')
 }
+const onAdvancedUpload = async (event:any) => {
+        let {upload:{attachment_name},success} = await JSON.parse(event.xhr.response)
+        if(success){
+            toast.add({ severity: 'success', summary: 'Upload Success', detail: "Succesfully Uploaded Image", life: 5000 });
+            let new_image:any = {
+                image_url: attachment_name
+            }
+            console.log("adding new image")
+            uploaded_images.value.push(new_image)
+            console.log("new array is ",uploaded_images.value)
+        }else {
+            toast.add({ severity: 'warn', summary: 'Upload Failed', detail: "Failed to upload image", life: 5000 });
+        }
+ };
+ const findAge = () => {
+    console.log("ageeeeeeeeeee",dependent_dob.value)
+    const providedDate:any = new Date(dependent_dob.value);
+
+    // Get the current date
+    const currentDate:any = new Date();
+    // Calculate the difference in milliseconds between the current date and the provided date
+    const differenceMs = currentDate - providedDate;
+    // Calculate the difference in years
+    const differenceYears = differenceMs / (1000 * 60 * 60 * 24 * 365.25);
+    is_over_eighteen.value = differenceYears >= 18;
+    return differenceYears >= 18;
+}
 const addToDependents = () => {
     let data = {
         first_name: dependent_first_name.value,
         last_name: dependent_last_name.value,
+        dob: dependent_dob.value,
         gender: selected_dependent_gender.value,
         id_number: dependent_id_number.value,
         relationship: selected_relationship_to_principal.value
@@ -439,6 +526,8 @@ const addToDependents = () => {
     dependents.value.push(data)
     dependent_first_name.value = null
     dependent_last_name.value = null
+    dependent_dob.value = null
+    is_over_eighteen.value = false
     selected_dependent_gender.value = null
     selected_relationship_to_principal.value = null
     dependent_id_number.value = null
@@ -447,7 +536,7 @@ const addToDependents = () => {
 }
 const  isValidZimbabweanID = () => {
   // Define the regular expression pattern
-  const regex = /^\d{2}-\d{6}[A-Z]\d{2}$/;
+  const regex = /^\d{2}-\d{5,7}[A-Z]\d{2}$/;
 
   // Test the given ID number against the pattern
   valid_id.value = regex.test(id_number.value);
@@ -455,7 +544,7 @@ const  isValidZimbabweanID = () => {
 }
 const  isValidZimbabweanIDDependent = () => {
   // Define the regular expression pattern
-  const regex = /^\d{2}-\d{6}[A-Z]\d{2}$/;
+  const regex = /^\d{2}-\d{5,7}[A-Z]\d{2}$/;
 
   // Test the given ID number against the pattern
   dependent_valid_id.value = regex.test(dependent_id_number.value);
@@ -483,6 +572,7 @@ const submitApplication = () => {
         employer_name: employer_name.value,
         employer_contact_number: contact_number.value,
         occupation: occupation.value,
+        id_photos: uploaded_images.value,
         department: department.value,
         ec_number: ec_number.value,
         station_number: station_number.value,

@@ -35,6 +35,7 @@ export default defineNuxtConfig({
       JWT_TOKEN_SECRET: process.env.JWT_TOKEN_SECRET,
       EMAIL_HOST: process.env.EMAIL_HOST,
       EMAIL_SERVICE: process.env.EMAIL_SERVICE,
+      FORMS_URL: process.env.FORMS_URL,
       EMAIL_PORT: process.env.EMAIL_PORT,
       EMAIL_USER: process.env.EMAIL_USER,
       EMAIL_PASS: process.env.EMAIL_PASS,

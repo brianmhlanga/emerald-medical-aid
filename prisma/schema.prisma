@@ -5,6 +5,7 @@ generator client  {
 
 datasource db {
   provider = "mysql"
+  // url = env("DATABASE_URL")
   url      = "mysql://forms:bm19962019@localhost:3306/forms?schema=public"
 }
 model User {
@@ -52,6 +53,7 @@ model Individual {
   package_type String?
   package_details String?
   previous_ailments Json?
+  id_photos Json?
   other_information String?
   previous_society_name String?
   tyform Tyforms?
@@ -93,6 +95,7 @@ model Dependent {
   id String @id @default(cuid())
   first_name String?
   last_name String?
+  dob DateTime?
   individual_id String?
   relationship String?
   dp Individual? @relation(fields: [individual_id],references: [id])
@@ -100,6 +103,13 @@ model Dependent {
   id_number String?
   created_at          DateTime       @default(now())
   updated_at          DateTime @updatedAt
+}
+
+model Attachments {
+  id String @id @default(cuid())
+  attachment_name String
+  date_updated DateTime @updatedAt
+  date_created DateTime @default(now())
 }
 
 enum profile_type {

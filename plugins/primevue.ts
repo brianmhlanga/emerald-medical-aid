@@ -37,6 +37,7 @@ import DataView from 'primevue/dataview';
 import Panel from 'primevue/panel';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
+import Carousel from 'primevue/carousel';
 import SplitButton from 'primevue/splitbutton';
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput';
 import DataTable from 'primevue/datatable';
@@ -75,6 +76,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Chart',Chart)
     nuxtApp.vueApp.component('Textarea',Textarea)
     nuxtApp.vueApp.component('Slider',Slider);
+    nuxtApp.vueApp.component('Carousel',Carousel);
     nuxtApp.vueApp.component('ColorPicker',ColorPicker)
     nuxtApp.vueApp.component('Checkbox',Checkbox)
     nuxtApp.vueApp.component('Splitter',Splitter);

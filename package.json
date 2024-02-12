@@ -57,6 +57,7 @@
     "primevue": "^3.34.1",
     "qs": "^6.11.0",
     "quill": "^1.3.7",
+    "sharp": "^0.33.2",
     "sweetalert2": "^11.4.8",
     "v-idle": "^0.2.1",
     "vue-phone-number-input": "^1.12.13",

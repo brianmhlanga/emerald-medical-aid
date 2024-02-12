@@ -76,6 +76,12 @@ span.djk {
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
+                        <label class="block mb-2" for="firstName">ID Photo:</label>
+                        <img src="${config.FORMS_URL}uploads/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
                         <label class="block mb-2" for="firstName">Membership Number:</label>
                         <span class="djk">${result.membership_number}</span>
                     </div>
@@ -144,6 +150,10 @@ span.djk {
                                 <label class="block mb-2" for="dependencyLastName">Dependency Last Name ${index+1}:</label>
                                 <span class="djk">${dependency.last_name}</span>
                             </div>
+                            <div>
+                            <label class="block mb-2" for="dependencyLastName">Dependency Last Name ${index+1}:</label>
+                            <span class="djk">${dependency.dob}</span>
+                        </div>
                             <div>
                                 <label class="block mb-2" for="dependencyLastName">Dependency ID Number ${index+1}:</label>
                                 <span class="djk">${dependency.id_number}</span>
@@ -317,6 +327,12 @@ span.djk {
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2" for="firstName">ID Photo:</label>
+                    <img src="${config.FORMS_URL}uploads/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
+                </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block mb-2" for="firstName">Membership Number:</label>
                         <span class="djk">${result.membership_number}</span>
@@ -385,6 +401,12 @@ span.djk {
                             <div>
                                 <label class="block mb-2" for="dependencyLastName">Dependency Last Name ${index+1}:</label>
                                 <span class="djk">${dependency.last_name}</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block mb-2" for="firstName">ID Number:</label>
+                                <span class="djk">${dependency.dob}</span>
+                            </div>
                             </div>
                             <div>
                                 <label class="block mb-2" for="dependencyLastName">Dependency ID Number ${index+1}:</label>

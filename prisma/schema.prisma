@@ -5,7 +5,7 @@ generator client  {
 
 datasource db {
   provider = "mysql"
-  // url = env("DATABASE_URL")
+  // url = "mysql://root:@localhost:3306/emerald?schema=public"
   url      = "mysql://emeraldforms:bm19962019@localhost:3306/emeraldforms?schema=public"
 }
 model User {

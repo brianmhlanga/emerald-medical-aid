@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     });
 
     let imageName = String(performance.now()) + String(Math.round(Math.random() * 10000000));
-    let newPath = `${ path.join("public","uploads", imageName) }.png`;
+    let newPath = `${ path.join("uploads", imageName) }.png`;
 
     sharp(filepath)
         .resize({

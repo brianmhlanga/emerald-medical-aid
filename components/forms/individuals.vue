@@ -58,7 +58,7 @@
                     <template #item="slotProps">
                         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
                             <div class="mb-3">
-                                <img :src="`uploads/${slotProps.data.image_url}`" class="w-6 shadow-2" />
+                                <img :src="`images/${slotProps.data.image_url}`" class="w-6 shadow-2" />
                             </div>
                         </div>
                     </template>

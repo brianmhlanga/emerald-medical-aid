@@ -4,7 +4,7 @@
   "scripts": {
     "build": "nuxt build",
     "seed": "node prisma/seed.js",
-    "start": "node .output/server/index.mjs -- PORT 3005",
+    "start": "node .output/server/index.mjs",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

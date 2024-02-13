@@ -77,7 +77,7 @@ span.djk {
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block mb-2" for="firstName">ID Photo:</label>
-                        <img src="${config.FORMS_URL}uploads/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
+                        <img src="${config.FORMS_URL}images/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -329,7 +329,7 @@ span.djk {
                 <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block mb-2" for="firstName">ID Photo:</label>
-                    <img src="${config.FORMS_URL}uploads/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
+                    <img src="${config.FORMS_URL}images/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
                 </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">

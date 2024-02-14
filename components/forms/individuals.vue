@@ -133,7 +133,7 @@
                         </div>
                         <div class="w-full">
                             <label for="expiration" class="block mb-1 text-color text-base">Relationship to Principal</label>
-                            <DropDown v-model="selected_relationship_to_principal" :options="relationships" placeholder="Select Gender" class="w-full md:12" />
+                            <DropDown v-model="selected_relationship_to_principal" :options="relationships" placeholder="Select Relationship" class="w-full md:12" />
                             <small style="color:red">Required</small>
                         </div>
                         </div>
@@ -153,7 +153,6 @@
                             <small style="color:red">Required</small>
                         </span>
                         </div>
-                       
                     </form>
                     </div>
                     <div class="p-dialog-footer" data-pc-section="footer">

@@ -58,7 +58,7 @@
                     <template #item="slotProps">
                         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
                             <div class="mb-3">
-                                <img :src="`uploads/${slotProps.data.image_url}`" class="w-6 shadow-2" />
+                                <img :src="`images/${slotProps.data.image_url}`" class="w-6 shadow-2" />
                             </div>
                         </div>
                     </template>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="w-full">
                             <label for="expiration" class="block mb-1 text-color text-base">Relationship to Principal</label>
-                            <DropDown v-model="selected_relationship_to_principal" :options="relationships" placeholder="Select Gender" class="w-full md:12" />
+                            <DropDown v-model="selected_relationship_to_principal" :options="relationships" placeholder="Select Relationship" class="w-full md:12" />
                             <small style="color:red">Required</small>
                         </div>
                         </div>

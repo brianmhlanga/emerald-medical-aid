@@ -16,6 +16,7 @@ import Dropdown from 'primevue/dropdown';
 import ConfirmPopup from 'primevue/confirmpopup';
 import OrderList from 'primevue/orderlist';
 import ToggleButton from 'primevue/togglebutton';
+import Paginator from 'primevue/paginator';
 import MultiSelect from 'primevue/multiselect';
 import Skeleton from 'primevue/skeleton';
 import TabView from 'primevue/tabview';
@@ -78,6 +79,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Slider',Slider);
     nuxtApp.vueApp.component('Carousel',Carousel);
     nuxtApp.vueApp.component('ColorPicker',ColorPicker)
+    nuxtApp.vueApp.component('Paginator',Paginator)
     nuxtApp.vueApp.component('Checkbox',Checkbox)
     nuxtApp.vueApp.component('Splitter',Splitter);
     nuxtApp.vueApp.component('SplitterPanel',SplitterPanel);

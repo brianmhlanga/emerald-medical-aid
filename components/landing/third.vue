@@ -1,8 +1,6 @@
 <template>
+    <CommonMenubar />
     <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
-        <div class="parent-container">
-            <img width="180" src="/images/logo.png" alt="Logo">
-        </div>
     <div class="flex flex-wrap">
         <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
         <div class="text-center text-900 text-5xl font-bold mb-5">Available Packages</div>

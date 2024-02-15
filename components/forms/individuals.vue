@@ -1,8 +1,6 @@
 <template>
+    <CommonMenubar />
     <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
-        <div class="parent-container">
-            <img width="180" src="/images/logo.png" alt="Logo">
-        </div>
         <div class=" px-4 py-8 md:px-6 lg:px-8">
         <div class="text-900 font-medium text-xl mb-3">Membership Application Form</div>
         <p class="m-0 mb-4 p-0 text-600 line-height-3 mr-3">Member Details</p>

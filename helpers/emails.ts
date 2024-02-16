@@ -77,6 +77,7 @@ span.djk {
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block mb-2" for="firstName">ID Photo:</label>
+                        <span class="djk">Link to ID Photo: ${config.FORMS_URL}images/${result.id_photos[0].image_url} <span>
                         <img src="${config.FORMS_URL}images/${result.id_photos[0].image_url}" alt="Logo" style="height: 50px;" />
                     </div>
                 </div>

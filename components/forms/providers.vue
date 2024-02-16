@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <Paginator v-if="number_of_records >= 861" @page="changeArray()" v-model:first="first" v :rows="items_per_page" :totalRecords="number_of_records ? number_of_records : 0"></Paginator>
+    <Paginator  @page="changeArray()" v-model:first="first" v :rows="items_per_page" :totalRecords="number_of_records ? number_of_records : 0"></Paginator>
     </div>
 </template>
 <script setup lang="ts">

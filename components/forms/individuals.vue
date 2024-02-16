@@ -98,10 +98,6 @@
                 <input v-model="department" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
             </div>
             <div class="field mb-4 col-6">
-                <label for="nickname2" class="font-medium text-900">E.C Work Number</label>
-                <input v-model="ec_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
-            </div>
-            <div class="field mb-4 col-6">
                 <label for="nickname2" class="font-medium text-900">Station Name</label>
                 <input v-model="station_number" class="p-inputtext p-component" data-pc-name="inputtext" data-pc-section="root" id="nickname2" type="text">
             </div>
@@ -279,7 +275,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import MazPhoneNumberInput from 'maz-ui/components/MazPhoneNumberInput'
 import { useFormStore } from "~~/stores/form";
 import { useToast } from "primevue/usetoast";

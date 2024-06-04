@@ -650,7 +650,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/individuals-U0MjGPHW.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/individuals-cpu_Irpo.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.name) ?? "login",
@@ -666,7 +666,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/providers-AJo3vTsQ.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/providers-YNX24YIZ.mjs').then((m) => m.default || m)
   },
   {
     name: "register",

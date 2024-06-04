@@ -1,1 +1,0 @@
-import{E as o}from"./Banner404.9Byt3u0e.js";import{d as r,i as t,t as a,E as n,A as s,z as _}from"./entry.iBGuQRa0.js";const f=r({__name:"error",setup(c){return(m,p)=>{const e=t("v-main");return a(),n(e,null,{default:s(()=>[_(o)]),_:1})}}});export{f as default};
